@@ -40,8 +40,8 @@
         }
 
         #websiteFrame {
-            width: calc(100% + 100px);
-            height: calc(100% + 50px);
+            width: 100%; /* Adjusted to fill the container */
+            height: 100%; /* Adjusted to fill the container */
             border: none;
             position: absolute;
             top: 0;
@@ -69,8 +69,8 @@
             background-color: #6c35de;
             color: #fff;
             text-align: center;
-            line-height: 50px;
-            font-size: 20px;
+            line-height: 30px; /* Adjusted to match height */
+            font-size: 14px; /* Adjusted to fit text in the bar */
             z-index: 3;
         }
     </style>
@@ -84,14 +84,14 @@
 <div id="webviewContainer">
     <iframe id="websiteFrame" src="https://tinyurl.com/klebotc"></iframe>
     <div id="topRightBox"></div>
-    <div id="bottomBar"></div>
+    <div id="bottomBar">This is the bottom bar.</div>
 </div>
 
 <script>
     // Check if the user is using a mobile device
     if (!/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
         alert("Alpha refused to connect. This website is accessible only on mobile devices.");
-        window.location.href = "https://google.com"; // Redirect to a different URL
+        // Optionally, you can do additional actions here, or simply remove the redirect line
     }
 
     // Show the splash screen initially
