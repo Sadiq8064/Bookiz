@@ -89,25 +89,19 @@
 
 <script>
     // Check if the user is using a mobile device
-  // Check if the user is using a mobile device
-    console.log("User agent:", navigator.userAgent);
-if (!/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-    alert("This website is accessible only on mobile devices.");
-    
-   
-}
-
+    if (!/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+        alert("Alpha refused to connect. This website is accessible only on mobile devices.");
+        // Optionally, you can do additional actions here, or simply remove the redirect line
     }
 
     // Show the splash screen initially
-document.getElementById("splashScreen").style.display = "flex";
+    document.getElementById("splashScreen").style.display = "flex";
 
-// Hide the splash screen after 5 seconds
-setTimeout(function() {
-    document.getElementById("splashScreen").style.display = "none";
-    document.getElementById("websiteFrame").style.display = "block";
-}, 5);
-
+    // Hide the splash screen after 5 seconds and show the website
+    setTimeout(function() {
+        document.getElementById("splashScreen").style.display = "none";
+        document.getElementById("websiteFrame").style.display = "block";
+    }, 5000);
 </script>
 
 </body>
