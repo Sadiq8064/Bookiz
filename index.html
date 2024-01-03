@@ -4,10 +4,75 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Alpha</title>
+    <!-- Set the website icon (favicon) to the splash image -->
     <link rel="icon" href="https://em-content.zobj.net/source/facebook/327/atom-symbol_269b-fe0f.png" type="image/png">
 
     <style>
-        /* Your existing CSS styles remain unchanged */
+        body, html {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        #webviewContainer {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        #splashScreen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 4;
+        }
+
+        #splashImage {
+            width: 200px;
+            height: 200px;
+        }
+
+        #websiteFrame {
+            width: 100%; /* Adjusted to fill the container */
+            height: 100%; /* Adjusted to fill the container */
+            border: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1;
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 10% 100%, 0 90%);
+            display: none;
+        }
+
+        #topRightBox {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 50px;
+            height: 50px;
+            background-color: #6c35de;
+            z-index: 2;
+        }
+
+        #bottomBar {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 30px;
+            background-color: #6c35de;
+            color: #fff;
+            text-align: center;
+            line-height: 30px; /* Adjusted to match height */
+            font-size: 14px; /* Adjusted to fit text in the bar */
+            z-index: 3;
+        }
     </style>
 </head>
 <body>
@@ -21,63 +86,17 @@
     <div id="topRightBox"></div>
     <div id="bottomBar">This is the bottom bar.</div>
 </div>
-
 <script>
-    // Your existing code remains unchanged
-
     // Check if the user is using a mobile device
     if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
         // Show the splash screen initially
         document.getElementById("splashScreen").style.display = "flex";
 
-        // Check for beforeinstallprompt event
-        let deferredPrompt;
-        window.addEventListener('beforeinstallprompt', (e) => {
-            // Prevent Chrome 76 and later from automatically showing the prompt
-            e.preventDefault();
-            // Stash the event so it can be triggered later
-            deferredPrompt = e;
-            // Optionally, you can show a custom button or UI to trigger the prompt
-            // Show your own install button or provide a custom way to install the app
-            // Example: showInstallPrompt();
-        });
-
         // Hide the splash screen after 5 seconds and show the website
         setTimeout(function() {
             document.getElementById("splashScreen").style.display = "none";
             document.getElementById("websiteFrame").style.display = "block";
-            // Optionally, check if the app is already installed before showing the prompt
-            if (deferredPrompt && !isAppInstalled()) {
-                // Show your custom install prompt
-                showInstallPrompt();
-            }
         }, 5000);
-
-        // Function to show the custom install prompt
-        function showInstallPrompt() {
-            // Display your custom message to prompt the user to install the app
-            if (confirm("Install this site as an app?")) {
-                // Trigger the deferredPrompt to show the browser's install prompt
-                deferredPrompt.prompt();
-                // Wait for the user to respond to the prompt
-                deferredPrompt.userChoice.then((choiceResult) => {
-                    if (choiceResult.outcome === 'accepted') {
-                        console.log('User accepted the install prompt');
-                    } else {
-                        console.log('User dismissed the install prompt');
-                    }
-                    // Reset deferredPrompt to null after prompt is shown
-                    deferredPrompt = null;
-                });
-            }
-        }
-
-        // Function to check if the app is already installed
-        function isAppInstalled() {
-            // You can use the beforeinstallprompt event to determine if the app is installed
-            // For simplicity, we'll assume the app is not installed
-            return false;
-        }
     } else {
         // Show the splash screen for non-mobile devices
         document.getElementById("splashScreen").style.display = "flex";
@@ -86,6 +105,7 @@
         document.getElementById("websiteFrame").style.display = "none";
     }
 </script>
+
 
 </body>
 </html>
