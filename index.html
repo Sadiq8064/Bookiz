@@ -3,6 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="manifest" href="/manifest.json">
+
+    <!-- Add a link to your icon for the home screen -->
+    <link rel="apple-touch-icon"https://em-content.zobj.net/source/facebook/327/atom-symbol_269b-fe0f.png" type="image/png">
     <title>Alpha</title>
     <!-- Set the website icon (favicon) to the splash image -->
     <link rel="icon" href="https://em-content.zobj.net/source/facebook/327/atom-symbol_269b-fe0f.png" type="image/png">
@@ -105,6 +111,36 @@
         document.getElementById("websiteFrame").style.display = "none";
     }
 </script>
+   <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/service-worker.js')
+                .then(function (registration) {
+                    console.log('Service Worker registered with scope:', registration.scope);
+                })
+                .catch(function (error) {
+                    console.error('Service Worker registration failed:', error);
+                });
+        }
+
+        let deferredPrompt;
+
+        window.addEventListener('beforeinstallprompt', (e) => {
+            // Prevent Chrome 67 and earlier from automatically showing the prompt
+            e.preventDefault();
+
+            // Stash the event so it can be triggered later
+            deferredPrompt = e;
+
+            // Show the install button
+            showInstallPromotion();
+        });
+
+        function showInstallPromotion() {
+            // Display your custom installation prompt here
+            // You can use a modal, a banner, or any other element
+            alert('Install this site as an app!');
+        }
+    </script>
 
 
 </body>
