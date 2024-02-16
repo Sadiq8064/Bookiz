@@ -1,149 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <link rel="manifest" href="/manifest.json">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Webview</title>
+<style>
+    body, html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        overflow: hidden;
+    }
 
-    <!-- Add a link to your icon for the home screen -->
-    <link rel="apple-touch-icon" href="https://wotnot-header-logo.storage.googleapis.com/85f3fac6-b6e1-11ee-8513-cadd0f06175d_image-removebg-preview-removebg-preview.png" type="image/png">
-    <title>Bookiz</title>
-    <!-- Set the website icon (favicon) to the splash image -->
-    <link rel="icon" href="https://wotnot-header-logo.storage.googleapis.com/85f3fac6-b6e1-11ee-8513-cadd0f06175d_image-removebg-preview-removebg-preview.png" type="image/png">
-
-    <style>
-        body, html {
-            margin: 0;
-            padding: 0;
-            overflow: hidden;
-        }
-
-        #splashScreen {
-            background-color: #ffffff; /* White background color */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-        }
-
-        #splashScreen img {
-            max-width: 100%;
-            max-height: 100%;
-        }
-
-        #webviewContainer {
-            position: relative;
-            width: 100vw;
-            height: 100vh;
-            overflow: hidden;
-            display: none; /* Initially hide the webview container */
-        }
-
-        #websiteFrame {
-            width: 100%;
-            height: 100%;
-            border: none;
-            position: absolute;
-            top: 0;
-            left: 0;
-            z-index: 1;
-            clip-path: polygon(0 0, 100% 0, 100% 100%, 10% 100%, 0 90%);
-        }
-
-        #topRightBox {
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 50px;
-            height: 50px;
-            background-color: #6c35de;
-            z-index: 2;
-        }
-
-        #bottomBar {
-            position: absolute;
-            bottom: 0;
-            width: 100%;
-            height: 30px;
-            background-color: #6c35de;
-            color: #fff;
-            text-align: center;
-            line-height: 30px;
-            font-size: 14px;
-            z-index: 3;
-        }
-    </style>
+    iframe {
+        border: none;
+        width: 100%;
+        height: 100%;
+    }
+</style>
 </head>
 <body>
-
-<div id="splashScreen">
-    <img src="https://wotnot-header-logo.storage.googleapis.com/85f3fac6-b6e1-11ee-8513-cadd0f06175d_image-removebg-preview-removebg-preview.png" alt="Icon">
-</div>
-
-<div id="webviewContainer">
-    <iframe id="websiteFrame" src="https://tinyurl.com/klebotc"></iframe>
-    <div id="topRightBox"></div>
-    <div id="bottomBar">Made with ♥</div>
-</div>
-
-<script>
-    if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('/service-worker.js')
-            .then(function (registration) {
-                console.log('Service Worker registered with scope:', registration.scope);
-            })
-            .catch(function (error) {
-                console.error('Service Worker registration failed:', error);
-            });
-    }
-
-    let deferredPrompt;
-
-    window.addEventListener('beforeinstallprompt', (e) => {
-        // Prevent Chrome 67 and earlier from automatically showing the prompt
-        e.preventDefault();
-
-        // Stash the event so it can be triggered later
-        deferredPrompt = e;
-
-        // Show the install button
-        showInstallPromotion();
-    });
-
-    function showInstallPromotion() {
-        // Display your custom installation prompt here
-        // You can use a modal, a banner, or any other element
-        if (confirm('Install this site as an app?')) {
-            // If the user clicks "OK", prompt the deferred prompt
-            deferredPrompt.prompt();
-            deferredPrompt.userChoice.then((choiceResult) => {
-                if (choiceResult.outcome === 'accepted') {
-                    console.log('User accepted the install prompt');
-                } else {
-                    console.log('User dismissed the install prompt');
-                }
-                deferredPrompt = null;
-            });
-        } else {
-            // If the user clicks "Cancel", show an alert
-            alert('You can install the app later by using the "Add to Home Screen" option in your browser settings.');
+    <iframe src="https://app.wotnot.io/bot-preview/Z6kzH7TrTEdW161106680395EqUhN8ic" frameborder="0"></iframe>
+       <script>
+        // Check if the device is not a mobile phone
+        if (!(/Mobi/.test(navigator.userAgent))) {
+            // Redirect to www.youtube.com
+            window.location.href = "https://www.youtube.com";
         }
-    }
-
-    // Check if the website is running in standalone mode (added to home screen)
-    if (window.navigator.standalone) {
-        document.getElementById("splashScreen").style.display = "none";
-        document.getElementById("webviewContainer").style.display = "block";
-    } else {
-        // Show the white splash screen with the icon for 5 seconds
-        setTimeout(function () {
-            document.getElementById("splashScreen").style.display = "none";
-            document.getElementById("webviewContainer").style.display = "block";
-        }, 5000);
-    }
-</script>
-
+    </script>
 </body>
 </html>
